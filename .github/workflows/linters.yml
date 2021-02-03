@@ -6,11 +6,15 @@ jobs:
   rubocop:
     name: Rubocop
     runs-on: ubuntu-18.04
+    
+    strategy:
+      matrix:
+        ruby-version: [3.0.x, 2.7.x, 2.6.x, 2.5.x]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-ruby@v1
         with:
-          ruby-version: 2.6.x
+          ruby-version: ${{ matrix.ruby-version }}
       - name: Setup Rubocop
         run: |
           gem install --no-document rubocop:'~>0.81.0' # https://docs.rubocop.org/en/stable/installation/
